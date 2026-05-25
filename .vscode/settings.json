@@ -1,0 +1,10 @@
+{
+    "python.defaultInterpreterPath": "/Users/yoshimurakota/.pyenv/versions/anaconda3-2020.11/bin/python",
+    "python.terminal.activateEnvironment": false,
+    "code-runner.executorMap": {
+        "python": "/Users/yoshimurakota/.pyenv/versions/anaconda3-2020.11/bin/python -u"
+    },
+    "python-envs.defaultEnvManager": "ms-python.python:conda",
+    "python-envs.defaultPackageManager": "ms-python.python:conda",
+    "python-envs.pythonProjects": []
+}
