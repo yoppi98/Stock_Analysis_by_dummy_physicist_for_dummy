@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Data_Aquisition</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<h1 id="stock-price-data-structure">Stock Price Data Structure</h1>
+<p>First, I would like to explain some basic stock market
+terminology.<br />
+This is the minimum knowledge we need to understand stock price
+data.</p>
+<p>You can think of stock market data as a table that records important
+information about a company and its stock price for a certain day.</p>
+<h2 id="basic-stock-price-terminology">Basic Stock Price
+Terminology</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Brand Name</td>
+<td>The name of the company or stock. For example, Apple, Toyota, Tesla,
+etc.</td>
+</tr>
+<tr>
+<td>Brand Code</td>
+<td>The stock code or ticker symbol used to identify the company in the
+stock market. For example, AAPL for Apple or 7203 for Toyota.</td>
+</tr>
+<tr>
+<td>Opening Price</td>
+<td>The first price of the stock when the market opens.</td>
+</tr>
+<tr>
+<td>Maximum Price</td>
+<td>The highest price of the stock during the trading day. This is also
+called the high price.</td>
+</tr>
+<tr>
+<td>Minimum Price</td>
+<td>The lowest price of the stock during the trading day. This is also
+called the low price.</td>
+</tr>
+<tr>
+<td>Final Price</td>
+<td>The last price of the stock when the market closes. This is also
+called the closing price.</td>
+</tr>
+<tr>
+<td>Volume</td>
+<td>The number of shares traded during the trading day.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<p>For example, one row of stock price data may look like this:</p>
+<table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th>Brand Name</th>
+<th style="text-align: right;">Brand Code</th>
+<th style="text-align: right;">Opening Price</th>
+<th style="text-align: right;">Maximum Price</th>
+<th style="text-align: right;">Minimum Price</th>
+<th style="text-align: right;">Final Price</th>
+<th style="text-align: right;">Volume</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Apple</td>
+<td style="text-align: right;">AAPL</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: right;">185</td>
+<td style="text-align: right;">178</td>
+<td style="text-align: right;">183</td>
+<td style="text-align: right;">50,000,000</td>
+</tr>
+</tbody>
+</table>
+<p>This means that Apple stock started at 180 dollars, reached a highest
+price of 185 dollars, went down to a lowest price of 178 dollars, and
+finally closed at 183 dollars.<br />
+The volume means that 50,000,000 shares were traded on that day.</p>
+<h2 id="why-this-data-is-useful">Why This Data Is Useful</h2>
+<p>Using this kind of stock price data, we can analyze how the stock
+price changed during the day.<br />
+For example, we can check whether the price increased or decreased from
+the opening price to the final price.</p>
+<h2 id="ohlc-and-ohlcv">OHLC and OHLCV</h2>
+<p>This type of stock price data is commonly called
+<strong>OHLC</strong> or <strong>OHLCV</strong>.</p>
+<p><strong>OHLC</strong> means:</p>
+<table>
+<thead>
+<tr>
+<th>Letter</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>O</td>
+<td>Open price</td>
+</tr>
+<tr>
+<td>H</td>
+<td>High price</td>
+</tr>
+<tr>
+<td>L</td>
+<td>Low price</td>
+</tr>
+<tr>
+<td>C</td>
+<td>Close price</td>
+</tr>
+</tbody>
+</table>
+<p><strong>OHLCV</strong> means OHLC plus volume:</p>
+<table>
+<thead>
+<tr>
+<th>Letter</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>O</td>
+<td>Open price</td>
+</tr>
+<tr>
+<td>H</td>
+<td>High price</td>
+</tr>
+<tr>
+<td>L</td>
+<td>Low price</td>
+</tr>
+<tr>
+<td>C</td>
+<td>Close price</td>
+</tr>
+<tr>
+<td>V</td>
+<td>Volume</td>
+</tr>
+</tbody>
+</table>
+<p>So, if the data only contains stock prices, we can call it
+<strong>OHLC data</strong>.<br />
+If the data also contains trading volume, we can call it <strong>OHLCV
+data</strong>.</p>
+<p>In many stock analysis projects, the basic data table has the
+following columns:</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Brand Name</td>
+<td>Company or stock name</td>
+</tr>
+<tr>
+<td>Brand Code</td>
+<td>Stock code or ticker symbol</td>
+</tr>
+<tr>
+<td>Open</td>
+<td>First price when the market opens</td>
+</tr>
+<tr>
+<td>High</td>
+<td>Highest price during the trading day</td>
+</tr>
+<tr>
+<td>Low</td>
+<td>Lowest price during the trading day</td>
+</tr>
+<tr>
+<td>Close</td>
+<td>Final price when the market closes</td>
+</tr>
+<tr>
+<td>Volume</td>
+<td>Number of shares traded during the trading day</td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-are-stock-price-charts">What Are Stock Price Charts?</h2>
+<p>There are two important types of stock charts that we can look
+at.<br />
+The first is the <strong>moving average (MA)</strong> chart, which helps
+us understand the overall trend of a stock price.<br />
+The second is the <strong>candlestick chart</strong>, which shows more
+detailed information, such as <strong>OHLC</strong> (Open, High, Low,
+and Close) over a day or another short time period.</p>
+<h3 id="moving-average-ma">1. Moving Average (MA)</h3>
+<p>As mentioned before, a moving average shows the average stock price
+over the last <strong>n</strong> days, where <strong>n</strong> can be
+chosen freely.<br />
+For example, if we use 5 days, it is called a <strong>5-day moving
+average</strong>.</p>
+<p>The most basic type of moving average is called the <strong>Simple
+Moving Average (SMA)</strong>.<br />
+There are several other ways to calculate moving averages. For example,
+some methods use weighted averages, which place more emphasis on recent
+data.<br />
+However, in this analysis, I will focus only on the
+<strong>SMA</strong>.</p>
+<figure>
+<img src="MA.png" alt="Moving Average" />
+<figcaption aria-hidden="true">Moving Average</figcaption>
+</figure>
+<h3 id="candlestick-chart">2. Candlestick Chart</h3>
+<p>A candlestick chart allows us to see <strong>OHLC</strong> data
+easily in the stock market.<br />
+It shows the <strong>Open</strong>, <strong>High</strong>,
+<strong>Low</strong>, and <strong>Close</strong> prices for a given day
+or time interval.</p>
+<p>If the <strong>closing price is higher than the opening
+price</strong>, the rectangular part of the candlestick, called the
+<strong>real body</strong>, is shown as <strong>hollow</strong>.<br />
+If the <strong>closing price is lower than the opening price</strong>,
+the real body is shown as <strong>black</strong>.</p>
+<p>Candlestick charts were originally developed by <strong>Japanese rice
+traders in the 18th century</strong>.</p>
+<figure>
+<img src="Candle_Stick.png" alt="Candlestick Chart" />
+<figcaption aria-hidden="true">Candlestick Chart</figcaption>
+</figure>
+<h2 id="getting-data-using-python">Getting Data Using Python</h2>
+<p>Now, let’s actually get stock price data and plot it using
+Python.</p>
+<p>In this section, we will mainly use <strong>NumPy</strong> and
+<strong>pandas</strong>.</p>
+<p><strong>NumPy</strong> is a Python library used for numerical and
+scientific calculations.<br />
+It is useful when we want to work with numbers, arrays, and mathematical
+operations.</p>
+<p><strong>pandas</strong> is a Python library used for organizing and
+analyzing data.<br />
+It is especially useful when we want to work with table-like data,
+similar to an Excel spreadsheet.</p>
+<p>In stock analysis, pandas is very useful because stock price data is
+usually stored in a table format, such as:</p>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th style="text-align: right;">Open</th>
+<th style="text-align: right;">High</th>
+<th style="text-align: right;">Low</th>
+<th style="text-align: right;">Close</th>
+<th style="text-align: right;">Volume</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2024-01-01</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">105</td>
+<td style="text-align: right;">98</td>
+<td style="text-align: right;">103</td>
+<td style="text-align: right;">1000000</td>
+</tr>
+</tbody>
+</table>
+<p>Using pandas, we can easily read this data, organize it, calculate
+moving averages, and make plots.</p>
+<h3 id="get-data-with-yfinance">Get Data with yfinance</h3>
+<p>In this project, we will use a Python library called
+<strong>yfinance</strong> to get stock price data.</p>
+<p>At first, I tried to use <code>pandas-datareader</code> with Stooq.
+However, Stooq now requires an API key to download the data directly, so
+for this beginner project, I will use <code>yfinance</code> instead.</p>
+<p><code>yfinance</code> allows us to download stock price data from
+Yahoo Finance. For example, we can download Apple stock data using the
+ticker symbol <code>AAPL</code>.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Apple stock data for the last 5 years</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> yf.download(<span class="st">&quot;AAPL&quot;</span>, period<span class="op">=</span><span class="st">&quot;5y&quot;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;First 5 rows:&quot;</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.head())</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Last 5 rows:&quot;</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.tail())</span></code></pre></div>
+<p>The output will look like this:</p>
+<pre class="text"><code>First 5 rows:
+Price            Close        High         Low        Open    Volume
+Ticker            AAPL        AAPL        AAPL        AAPL      AAPL
+2021-05-24  123.890968  124.709764  122.760260  122.828492  63092900
+2021-05-25  123.696030  125.080183  123.130672  124.592800  72009500
+2021-05-26  123.647270  124.173637  123.228127  123.754494  56575900
+2021-05-27  122.116920  124.417336  121.921973  123.247636  94625600
+2021-05-28  121.463837  122.623794  121.405354  122.399598  71311100
+
+Last 5 rows:
+Price            Close        High         Low        Open    Volume
+Ticker            AAPL        AAPL        AAPL        AAPL      AAPL
+2026-05-18  297.839996  300.660004  294.910004  300.239990  34483000
+2026-05-19  298.970001  300.510010  296.350006  296.970001  42243600
+2026-05-20  302.250000  302.799988  298.079987  298.179993  38229800
+2026-05-21  304.989990  305.540009  300.399994  301.059998  42965100
+2026-05-22  308.820007  311.399994  305.839996  306.119995  43627900</code></pre>
+<p>If we want to change the time range of the downloaded stock data, we
+can change the <code>period</code> option.</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>period<span class="op">=</span><span class="st">&quot;1mo&quot;</span>   <span class="co"># 1 month</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>period<span class="op">=</span><span class="st">&quot;6mo&quot;</span>   <span class="co"># 6 months</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>period<span class="op">=</span><span class="st">&quot;1y&quot;</span>    <span class="co"># 1 year</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>period<span class="op">=</span><span class="st">&quot;5y&quot;</span>    <span class="co"># 5 years</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>period<span class="op">=</span><span class="st">&quot;10y&quot;</span>   <span class="co"># 10 years</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>period<span class="op">=</span><span class="st">&quot;max&quot;</span>   <span class="co"># all available data</span></span></code></pre></div>
+<p>As you can see, the stock price data is stored as a
+<strong>DataFrame</strong>.</p>
+<p>A <strong>DataFrame</strong> is a table-like object used in the
+<code>pandas</code> library.<br />
+It is useful for data analysis because it allows us to organize data
+using rows and columns.</p>
+<p>You can think of a DataFrame as something similar to an Excel table
+or a matrix.</p>
+<p>In this example, each row corresponds to a different date.<br />
+The date is used as the <strong>index</strong>.</p>
+<p>The columns contain stock price information. In the output from
+<code>yfinance</code>, the columns are displayed in this order:</p>
+<pre class="text"><code>Close, High, Low, Open, Volume</code></pre>
+<p>You can further check the index as</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df.index</span></code></pre></div>
+<p>then you will get</p>
+<pre class="text"><code>DatetimeIndex([&#39;2021-05-24&#39;, &#39;2021-05-25&#39;, &#39;2021-05-26&#39;, &#39;2021-05-27&#39;,
+               &#39;2021-05-28&#39;, &#39;2021-06-01&#39;, &#39;2021-06-02&#39;, &#39;2021-06-03&#39;,
+               &#39;2021-06-04&#39;, &#39;2021-06-07&#39;,
+               ...
+               &#39;2026-05-11&#39;, &#39;2026-05-12&#39;, &#39;2026-05-13&#39;, &#39;2026-05-14&#39;,
+               &#39;2026-05-15&#39;, &#39;2026-05-18&#39;, &#39;2026-05-19&#39;, &#39;2026-05-20&#39;,
+               &#39;2026-05-21&#39;, &#39;2026-05-22&#39;],
+              dtype=&#39;datetime64[ns]&#39;, length=1256, freq=None)</code></pre>
+<p>so you can see thaa data colun is datatime type data so you can
+easily manipulate the data.</p>
+</body>
+</html>
