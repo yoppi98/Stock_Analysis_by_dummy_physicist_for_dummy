@@ -463,7 +463,7 @@ data.<br />
 However, in this analysis, I will focus only on the
 <strong>SMA</strong>.</p>
 <figure>
-<img src="MA.png" alt="Moving Average" />
+<img src="Getting_Stock_Data/MA.png" alt="Moving Average" />
 <figcaption aria-hidden="true">Moving Average</figcaption>
 </figure>
 <h3 id="candlestick-chart">2. Candlestick Chart</h3>
@@ -480,7 +480,8 @@ the real body is shown as <strong>black</strong>.</p>
 <p>Candlestick charts were originally developed by <strong>Japanese rice
 traders in the 18th century</strong>.</p>
 <figure>
-<img src="Candle_Stick.png" alt="Candlestick Chart" />
+<img src="Getting_Stock_Data/Candle_Stick.png"
+alt="Candlestick Chart" />
 <figcaption aria-hidden="true">Candlestick Chart</figcaption>
 </figure>
 <h2 id="getting-data-using-python">Getting Data Using Python</h2>
@@ -595,7 +596,48 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a hr
                &#39;2026-05-15&#39;, &#39;2026-05-18&#39;, &#39;2026-05-19&#39;, &#39;2026-05-20&#39;,
                &#39;2026-05-21&#39;, &#39;2026-05-22&#39;],
               dtype=&#39;datetime64[ns]&#39;, length=1256, freq=None)</code></pre>
-<p>so you can see thaa data colun is datatime type data so you can
-easily manipulate the data.</p>
+<p>This means that the index of the DataFrame is a
+<strong>DatetimeIndex</strong>.</p>
+<p>A <strong>DatetimeIndex</strong> means that pandas understands the
+index as date and time data, not just normal text.<br />
+This is useful because we can easily manipulate the data using
+dates.</p>
+<p>For example, if we want to select data after 2024, we can write:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df[df.index <span class="op">&gt;=</span> <span class="st">&quot;2024-01-01&quot;</span>]</span></code></pre></div>
+<p>If we want to select data between two dates, we can write:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">&quot;2024-01-01&quot;</span>:<span class="st">&quot;2024-12-31&quot;</span>]</span></code></pre></div>
+<p>If we want to access a specific column, such as the closing price, we
+can use:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">&quot;Close&quot;</span>]</span></code></pre></div>
+<p>Then the output will look like this:</p>
+<pre class="text"><code>Ticker            AAPL
+2021-05-24  123.890968
+2021-05-25  123.696014
+2021-05-26  123.647285
+2021-05-27  122.116920
+2021-05-28  121.463837</code></pre>
+<p>Even though we selected only one column, the index information is
+still retained.<br />
+This kind of one-column data is called a <strong>Series</strong> in
+pandas.</p>
+<p>Now we can easily plot the closing price of Apple stock:</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">&quot;Close&quot;</span>].plot()</span></code></pre></div>
+<p>However, if we run this in a normal Python file, we also need to use
+<code>plt.show()</code> to display the graph:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">&quot;Close&quot;</span>].plot()</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p>The result will look like this:</p>
+<figure>
+<img src="Getting_Stock_Data/applestock.png"
+alt="Apple Stock Closing Price" />
+<figcaption aria-hidden="true">Apple Stock Closing Price</figcaption>
+</figure>
 </body>
 </html>

@@ -86,7 +86,7 @@ The most basic type of moving average is called the **Simple Moving Average (SMA
 There are several other ways to calculate moving averages. For example, some methods use weighted averages, which place more emphasis on recent data.  
 However, in this analysis, I will focus only on the **SMA**.
 
-![Moving Average](MA.png)
+![Moving Average](Getting_Stock_Data/MA.png)
 
 ### 2. Candlestick Chart
 
@@ -98,7 +98,7 @@ If the **closing price is lower than the opening price**, the real body is shown
 
 Candlestick charts were originally developed by **Japanese rice traders in the 18th century**.
 
-![Candlestick Chart](Candle_Stick.png)
+![Candlestick Chart](Getting_Stock_Data/Candle_Stick.png)
 
 ## Getting Data Using Python
 
@@ -210,4 +210,59 @@ DatetimeIndex(['2021-05-24', '2021-05-25', '2021-05-26', '2021-05-27',
               dtype='datetime64[ns]', length=1256, freq=None)
 ```
 
-so you can see thaa data colun is datatime type data so you can easily manipulate the data. 
+This means that the index of the DataFrame is a **DatetimeIndex**.
+
+A **DatetimeIndex** means that pandas understands the index as date and time data, not just normal text.  
+This is useful because we can easily manipulate the data using dates.
+
+For example, if we want to select data after 2024, we can write:
+
+```python
+df[df.index >= "2024-01-01"]
+```
+
+If we want to select data between two dates, we can write:
+
+```python
+df["2024-01-01":"2024-12-31"]
+```
+
+If we want to access a specific column, such as the closing price, we can use:
+
+```python
+df["Close"]
+```
+
+Then the output will look like this:
+
+```text
+Ticker            AAPL
+2021-05-24  123.890968
+2021-05-25  123.696014
+2021-05-26  123.647285
+2021-05-27  122.116920
+2021-05-28  121.463837
+```
+
+Even though we selected only one column, the index information is still retained.  
+This kind of one-column data is called a **Series** in pandas.
+
+Now we can easily plot the closing price of Apple stock:
+
+```python
+df["Close"].plot()
+```
+
+However, if we run this in a normal Python file, we also need to use `plt.show()` to display the graph:
+
+```python
+import matplotlib.pyplot as plt
+
+df["Close"].plot()
+plt.show()
+```
+
+
+The result will look like this:
+
+![Apple Stock Closing Price](Getting_Stock_Data/applestock.png)
