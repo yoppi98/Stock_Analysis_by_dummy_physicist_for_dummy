@@ -15,4 +15,12 @@ print(intel_df.head())
 
 current_data = intel_df.tail(100)
 
-mpf.plot(intel_df, type="candle", figratio=(2, 1), volume=True, style = "yahoo")
+
+mpf.plot(
+    current_data,
+    type="candle",
+    figratio=(2, 1),
+    volume=True,
+    style="yahoo",
+    mav=(5)
+)
