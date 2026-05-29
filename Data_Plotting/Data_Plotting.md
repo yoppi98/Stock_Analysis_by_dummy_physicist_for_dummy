@@ -342,3 +342,78 @@ In this example, we manually calculate the 5-day, 25-day, and 75-day moving aver
 Then we add those moving average lines to the candlestick chart using `mpf.make_addplot()`.
 
 This method is useful because it gives us more control over the moving average data and the appearance of each line.
+
+You can also add a legend to the graph by using the **`returnfig`** option.
+
+When `returnfig=True`, `mplfinance` returns two objects:
+
+```python
+fig, axes
+```
+
+Here, `fig` is the whole figure object, and `axes` contains the different plot areas.  
+You can think of `axes[0]` as the address of the main candlestick chart.
+
+Then we can use the `legend()` method to add a legend to the chart.
+
+
+```python
+import yfinance as yf
+import mplfinance as mpf
+import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
+
+
+
+intel_df = yf.download("INTC",period="5y")
+
+print(intel_df.head())
+
+intel_df.columns = intel_df.columns.get_level_values(0)
+intel_df = intel_df[["Open", "High", "Low", "Close", "Volume"]]
+
+intel_df["ma5"] = intel_df["Close"].rolling(window=5).mean()
+intel_df["ma25"] = intel_df["Close"].rolling(window=25).mean()
+intel_df["ma75"] = intel_df["Close"].rolling(window=75).mean()
+
+addp = [
+    mpf.make_addplot(intel_df["ma5"], color="blue"),
+    mpf.make_addplot(intel_df["ma25"], color="green"),
+    mpf.make_addplot(intel_df["ma75"], color="red")
+]
+
+fig, axes = mpf.plot(intel_df, type="candle", figratio = (2,1), addplot = addp, style= "nightclouds"
+         , volume = True, returnfig = True)
+
+legend_lines = [
+    Line2D([0], [0], color="blue", label="MA5"),
+    Line2D([0], [0], color="green", label="MA25"),
+    Line2D([0], [0], color="red", label="MA75")
+]
+
+axes[0].legend(handles=legend_lines, loc="upper left")
+
+plt.show()
+```
+The result will look like this:
+
+![Moving Average Legend](moving_average_legend.png)
+
+From the moving averages, we can understand the trend of the stock price more clearly.
+
+When the stock price is going up, the short-term moving average usually becomes higher than the longer-term moving averages.  
+For example:
+
+```text
+MA5 > MA25 > MA75
+```
+
+This means the recent stock price is increasing faster than the longer-term average.
+
+On the other hand, when the stock price is going down, the longer-term moving average may become higher than the short-term moving average:
+
+```text
+MA75 > MA25 > MA5
+```
+
+This means the recent stock price is weaker than the longer-term trend.
