@@ -321,3 +321,148 @@ For example, if the stock price is near the -2σ band, some traders may expect t
 However, Bollinger Bands are not perfect.  
 The stock price can move outside the bands, and the trend can continue longer than expected.  
 Therefore, it is better to use Bollinger Bands together with other technical indicators.
+
+There is one important thing to note about Bollinger Bands.
+
+In general, when the stock price trend changes, the movement may appear in the outer band first, then move toward the inner band and the moving average.  
+For example, the order may look like this:
+
+```text
+2σ band → 1σ band → Moving Average
+```
+
+This means that if the stock price starts changing near the 2σ band, the movement may later be reflected near the 1σ band and then around the moving average.
+
+However, this does not always happen perfectly.  
+As we can see in the chart, real stock price movement is more complicated.
+
+This is one reason why we should not rely only on Bollinger Bands.  
+Bollinger Bands are useful, but they should be used together with other technical indicators.
+
+Another point is related to moving averages.
+
+Usually, during an uptrend, the short-term moving average, such as the 5-day MA, is higher than the longer-term moving average, such as the 25-day MA.
+
+For example:
+
+```text
+MA5 > MA25
+```
+
+If the stock price starts to go down during an uptrend, the 5-day moving average may come close to the 25-day moving average and then move away again.  
+This can sometimes look like the 5-day MA is being repelled by the 25-day MA.
+
+One possible interpretation is that some investors do not want to sell the stock below the 25-day average price.  
+Because of this, the 25-day moving average can sometimes act like a support line.
+
+However, this is not always true.  
+The stock price can break below the moving average if selling pressure becomes strong.
+
+Therefore, moving averages and Bollinger Bands are useful tools, but they should not be treated as perfect signals.
+
+![Figure 3](Figure_3.png)
+
+## Deviation Rate
+
+The **deviation rate** shows how far the current closing price is from the moving average.
+
+It can be calculated as:
+
+$$
+\text{Deviation Rate} = \frac{\text{Close} - \text{MA}}{\text{MA}} \times 100
+$$
+
+Here:
+
+| Term | Meaning |
+|---|---|
+| Close | Closing price |
+| MA | Moving average |
+| Deviation Rate | Percentage difference between the closing price and the moving average |
+
+If the deviation rate is positive, the closing price is above the moving average.
+
+If the deviation rate is negative, the closing price is below the moving average.
+
+In simple words, the deviation rate tells us how much the stock price deviates from its average line.
+
+Because stock prices usually move in a zigzag pattern, the deviation rate also moves up and down.  
+This makes it useful for checking whether the stock price may be too high or too low compared with its recent average.
+
+```python
+import yfinance as yf
+import mplfinance as mpf
+import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
+import talib as ta
+
+
+intel_df = yf.download("INTC",period="5y")
+
+print(intel_df.head())
+
+intel_df.columns = intel_df.columns.get_level_values(0)
+intel_df = intel_df[["Open", "High", "Low", "Close", "Volume"]]
+
+Close = intel_df["Close"]
+
+intel_df["ma5"] = ta.SMA(intel_df["Close"], 5)
+intel_df["ma25"] = ta.SMA(intel_df["Close"], 25)
+
+intel_df["Upper1"], _, intel_df["Lower1"]=ta.BBANDS(Close, timeperiod = 25, nbdevup = 1, nbdevdn = 1, matype = ta.MA_Type.SMA)
+
+intel_df["Upper2"], _, intel_df["Lower2"]=ta.BBANDS(Close, timeperiod = 25, nbdevup = 2, nbdevdn = 2, matype = ta.MA_Type.SMA)
+
+
+intel_df["ma5_dr"] = (intel_df["Close"]-intel_df["ma5"])/intel_df["ma5"]*100
+intel_df["ma25_dr"] = (intel_df["Close"]-intel_df["ma25"])/intel_df["ma25"]*100
+
+
+addp = [
+    mpf.make_addplot(intel_df["ma5"], color="blue"),
+    mpf.make_addplot(intel_df["ma25"], color="green"),
+
+    mpf.make_addplot(intel_df["Upper1"], color = "red", width = 0.5),
+    mpf.make_addplot(intel_df["Lower1"], color = "red", width = 0.5),
+    mpf.make_addplot(intel_df["Upper2"], color = "purple", width = 0.5),
+    mpf.make_addplot(intel_df["Lower2"], color = "purple", width = 0.5),
+
+    mpf.make_addplot(intel_df["ma5_dr"], color = "yellow", panel=2, ylabel="MA5 DR (%)"),
+    mpf.make_addplot(intel_df["ma25_dr"], color = "orange", panel=3, ylabel="MA25 DR (%)")
+    ]
+
+fig, axes = mpf.plot(intel_df, type="candle", figratio = (2,1), addplot = addp, style= "nightclouds"
+         , volume = True, returnfig = True)
+
+legend_lines = [
+    Line2D([0], [0], color="blue", label="MA5"),
+    Line2D([0], [0], color="green", label="MA25"),
+    Line2D([0], [0], color="red", label="sigma"),
+    Line2D([0], [0], color="green", label="2-sigma")
+]
+
+axes[0].legend(handles=legend_lines, loc="upper left")
+
+plt.show()
+```
+
+The result will look like this:
+
+![Figure 4](Figure_4.png)
+
+As you can see, the deviation rate moves in a zigzag pattern around 0.
+
+When the deviation rate is close to 0, the closing price is close to the moving average.  
+When the deviation rate is positive, the closing price is above the moving average.  
+When the deviation rate is negative, the closing price is below the moving average.
+
+Therefore, the deviation rate is useful for seeing how far the stock price is separated from its average trend.
+
+So far, we have learned how to plot technical indicators on candlestick charts.
+
+Next, we will look at moving averages more carefully and study how they can be used to understand trend changes.
+
+Moving averages are simple, but they are very useful for identifying whether the stock is in an uptrend, downtrend, or sideways trend.
+
+In the next section, we will focus on how the relationship between short-term and long-term moving averages can show possible changes in trend direction.
+
