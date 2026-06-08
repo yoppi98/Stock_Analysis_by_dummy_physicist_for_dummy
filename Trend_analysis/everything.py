@@ -47,6 +47,13 @@ intel_df["macd"],intel_df["macd_signal"],intel_df["hist"]=ta.MACD(Close,
 
 plot_df = intel_df["2025-12-01":]
 
+fill_2sigma = dict(
+    y1=plot_df["Upper2"].values,
+    y2=plot_df["Lower2"].values,
+    alpha=0.15,
+    color="green"
+)
+
 addp = [
     mpf.make_addplot(plot_df["ma5"], color="yellow", width=1),
     mpf.make_addplot(plot_df["ma25"], color="blue", width=1),
@@ -68,8 +75,8 @@ addp = [
 
 ]
 
-fig, axes = mpf.plot(plot_df, type="candle", figratio = (2,1), addplot = addp, style= "nightclouds"
-         , volume = True, returnfig = True)
+fig, axes = mpf.plot(plot_df, type="candle", figratio = (2,1), addplot = addp, style= "nightclouds",
+                     volume = True, returnfig = True, fill_between=fill_2sigma)
 
 legend_lines = [
     Line2D([0], [0], color="yellow", label="MA5"),
@@ -94,12 +101,12 @@ axes[6].axhline(70, color="orange", linestyle="--", linewidth=1)
 axes[6].axhline(30, color="cyan", linestyle="--", linewidth=1)
 axes[6].set_ylim(0, 100)
 
+
 RSI_legend_lines = [
     Line2D([0], [0], color="white", label="RSI 14"),
-    Line2D([0], [0], color="red", label="RSI 28"),
-    Line2D([0], [0], color="orange", linestyle="--", label="Overbought 70"),
-    Line2D([0], [0], color="cyan", linestyle="--", label="Oversold 30")
+    Line2D([0], [0], color="red", label="RSI 28")
 ]
+
 
 axes[6].legend(handles=RSI_legend_lines, loc="upper left")
 
@@ -109,9 +116,7 @@ axes[8].set_ylim(0, 100)
 
 Stochastics_legend_lines = [
     Line2D([0], [0], color="red", label="Slow%K"),
-    Line2D([0], [0], color="blue", label="Slow%D"),
-    Line2D([0], [0], color="orange", linestyle="--", label="Overbought 80"),
-    Line2D([0], [0], color="cyan", linestyle="--", label="Oversold 20")
+    Line2D([0], [0], color="blue", label="Slow%D")
 ]
 
 axes[8].legend(handles=Stochastics_legend_lines, loc="upper left")
