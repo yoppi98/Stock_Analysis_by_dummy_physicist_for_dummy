@@ -502,9 +502,8 @@ addp = [
 
 ]
 
-fig, axes = mpf.plot(plot_df, type="candle", figratio = (2,1), addplot = addp, style= "nightclouds"
-         , volume = True, returnfig = True, fill_between={"y1": plot_df["Lower2"].values,
-         "y2": plot_df["Upper2"].values, alpha=0.15, color="green"})
+fig, axes = mpf.plot(plot_df, type="candle", figratio = (2,1), addplot = addp, style= "nightclouds",
+                     volume = True, returnfig = True, fill_between=fill_2sigma)
 
 legend_lines = [
     Line2D([0], [0], color="yellow", label="MA5"),
@@ -529,12 +528,12 @@ axes[6].axhline(70, color="orange", linestyle="--", linewidth=1)
 axes[6].axhline(30, color="cyan", linestyle="--", linewidth=1)
 axes[6].set_ylim(0, 100)
 
+
 RSI_legend_lines = [
     Line2D([0], [0], color="white", label="RSI 14"),
-    Line2D([0], [0], color="red", label="RSI 28"),
-    Line2D([0], [0], color="orange", linestyle="--", label="Overbought 70"),
-    Line2D([0], [0], color="cyan", linestyle="--", label="Oversold 30")
+    Line2D([0], [0], color="red", label="RSI 28")
 ]
+
 
 axes[6].legend(handles=RSI_legend_lines, loc="upper left")
 
@@ -544,9 +543,7 @@ axes[8].set_ylim(0, 100)
 
 Stochastics_legend_lines = [
     Line2D([0], [0], color="red", label="Slow%K"),
-    Line2D([0], [0], color="blue", label="Slow%D"),
-    Line2D([0], [0], color="orange", linestyle="--", label="Overbought 80"),
-    Line2D([0], [0], color="cyan", linestyle="--", label="Oversold 20")
+    Line2D([0], [0], color="blue", label="Slow%D")
 ]
 
 axes[8].legend(handles=Stochastics_legend_lines, loc="upper left")
@@ -558,3 +555,31 @@ plt.show()
 The result will look like this:
 
 ![Figure Stochastic](Figure_3.png)
+
+Here, we can see three indicators at the same time: **MACD**, **RSI**, and **Stochastic Oscillator**.
+
+If we look carefully around the point where the golden cross happens in the moving average lines, we can see that the indicators start rising in a certain order.
+
+In this example, the order is:
+
+```text
+Stochastic Oscillator → RSI → MACD
+```
+
+This is natural because the Stochastic Oscillator is more sensitive to short-term market movement.  
+Therefore, it can react earlier to small changes in the stock price.
+
+RSI reacts more slowly than the Stochastic Oscillator, so it is useful for checking whether the short-term movement is becoming stronger in a more stable way.
+
+MACD is usually slower than Stochastic Oscillator and RSI because it uses EMA differences and a signal line.  
+However, MACD is useful for confirming a larger trend change.
+
+In simple words:
+
+| Indicator | Reaction speed | Meaning |
+|---|---|---|
+| Stochastic Oscillator | Fast | Reacts quickly to short-term price movement |
+| RSI | Medium | Shows buying and selling strength more smoothly |
+| MACD | Slower | Helps confirm larger trend changes |
+
+Therefore, when several indicators show similar signals in order, it can give us stronger confidence that the trend may be changing.
