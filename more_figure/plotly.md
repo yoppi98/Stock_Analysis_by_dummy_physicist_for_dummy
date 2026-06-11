@@ -313,3 +313,6 @@ go.Scatter(
 Here, `fill="tonexty"` fills the region between the current line and the previous line.
 
 Because the previous line is `Upper2` and the current line is `Lower2`, Plotly fills the region between the upper 2σ Bollinger Band and the lower 2σ Bollinger Band.
+
+## Adding Volume, MACD ,RSI, Stochastics
+Now lets add the volume below the data region. We will use the domain property. Basically we can us ethis inside of the layout. We need to first think about the layoput, We will put date and MACD, RSI, Stochastics, volume.
