@@ -77,7 +77,16 @@ data = [go.Candlestick(x = plot_df.index, open = plot_df["Open"],
         go.Scatter(yaxis="y1",x=plot_df.index, y = plot_df["Lower2"], name="Bollinger Band",line={"color": "white", "width":0},
                    fill="tonexty", fillcolor="rgba(0, 102, 255, 0.12)"),
 
-        go.Scatter(yaxis="y2", x=plot_df.index, y= plot_df["macd"], name="macd", line={"color":"pink", "width":1}),
+        go.Scatter(yaxis="y3", x=plot_df.index, y= plot_df["macd"], name="macd", line={"color":"pink", "width":1}),
+        go.Scatter(yaxis="y3", x=plot_df.index, y= plot_df["macd_signal"], name="macd_signal", line={"color":"cyan", "width":1}),
+        go.Bar(yaxis="y3", x=plot_df.index, y= plot_df["hist"], name="histgram", marker=dict(color="gray"),
+                        opacity=0.4),
+
+        go.Scatter(yaxis= "y4", x=plot_df.index, y = plot_df["RSI14"], name= "RSI14", line={"color": "black", "width" :0.5}),
+        go.Scatter(yaxis= "y4", x=plot_df.index, y = plot_df["RSI28"], name= "RSI28", line={"color": "red", "width" :0.5}),
+
+        go.Scatter(yaxis="y5", x=plot_df.index, y = plot_df["slowK"], name="SlowK", line={"color": "red", "width":0.5}),
+        go.Scatter(yaxis="y5", x=plot_df.index, y = plot_df["slowD"], name="SlowD", line={"color": "blue", "width":0.5}),
 
         go.Bar(x=plot_df.index, y=plot_df["Volume"], name="Volume", yaxis="y6",marker=dict(color="lightgray"),
         opacity=0.7)
@@ -85,13 +94,13 @@ data = [go.Candlestick(x = plot_df.index, open = plot_df["Open"],
 
 layout = {"height":1000, "title":{"text":"{} {}".format(ticker, name), "x": 0.5},
           "xaxis": {"rangeslider": {"visible": False} ,"type": "category","tickvals": plot_df.index[::3],
-                    "anchor": "y1"},
-          "yaxis1": { "domain":[0.59, 1.00] ,"title": "Stock Price (Dollar)", "side":"left", "tickformat":","},
+                    "anchor": "y2"},
+          "yaxis": { "domain":[0.59, 1.00] ,"title": "Stock Price (Dollar)", "side":"left", "tickformat":","},
           "yaxis2": {"domain":[0.5, 0.59]},
           "yaxis3": {"domain":[0.4, 0.495], "title": "MACD"},
           "yaxis4": {"domain":[0.2, 0.395],"title": "RSI"},
-          "yaxis5": {"domian":[0.1, 0.195],"title":"Stochastics"},
-          "yaxis6": {"domain": [0, 0.95], "title": "Volume", "showgrid":True},
+          "yaxis5": {"domain":[0.1, 0.195],"title":"Stochastics"},
+          "yaxis6": {"domain": [0, 0.095], "title": "Volume", "showgrid":True},
           "plot_bgcolor": "white","paper_bgcolor": "white",
           "margin": {"l": 70,"r": 30,"t": 70,"b": 90
     }
@@ -101,5 +110,11 @@ fig = go.Figure(data=data, layout=go.Layout(layout))
 
 fig.update_xaxes(showgrid=True, gridcolor="lightgray")
 fig.update_yaxes(showgrid=True, gridcolor="lightgray")
+
+fig.add_hline(y=70, line_dash="dash", line_color="orange", line_width=1, yref="y4")
+fig.add_hline(y=30, line_dash="dash", line_color="cyan", line_width=1, yref="y4")
+
+fig.add_hline(y=80, line_dash="dash", line_color="orange", line_width=1, yref="y5")
+fig.add_hline(y=20, line_dash="dash", line_color="cyan", line_width=1, yref="y5")
 
 fig.show()
