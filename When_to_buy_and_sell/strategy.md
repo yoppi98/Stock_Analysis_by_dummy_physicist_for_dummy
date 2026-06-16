@@ -1,0 +1,198 @@
+# Famous Strategies in the Stock Market
+
+There are many strategies for deciding when to buy and sell stocks.
+
+One famous strategy is **Granville's rules**.
+
+Granville's rules are based on the relationship between the stock price and a moving average line.
+
+The idea is simple:  
+we compare the stock price with a moving average and decide whether the stock may be in a buying or selling condition.
+
+Granville's rules were introduced by **J. E. Granville**.
+
+He recommended using the **200-day moving average**.  
+The 200-day moving average is often used because it roughly represents the long-term trend of the market.
+
+However, if we want to trade more frequently, we can use a shorter moving average, such as the 20-day moving average or 25-day moving average.
+
+## Granville's Rules
+
+Granville's rules are usually divided into two groups:
+
+| Type | Meaning |
+|---|---|
+| Long position | Buy signal |
+| Short position | Sell signal |
+
+A **long position** means buying the stock because we expect the price to go up.
+
+A **short position** means selling the stock because we expect the price to go down.
+
+## Long Position
+
+A long position is used when we want to buy the stock.
+
+In general, buy signals are stronger when the moving average is starting to go upward or already moving upward.
+
+### Long Rule 1
+
+The moving average is starting to go upward or moving sideways.  
+Then, the stock price crosses above the moving average from below.
+
+This may be a buy signal because the stock price starts moving above the trend line.
+
+### Long Rule 2
+
+The moving average is trending upward.  
+Then, the stock price temporarily falls below the moving average but crosses back above it.
+
+This may be a buy signal because the stock price returns to the upward trend.
+
+### Long Rule 3
+
+The moving average is trending upward.  
+Then, the stock price moves down close to the moving average but does not clearly break below it.
+
+This may be a buy signal because the moving average acts like a support line.
+
+### Long Rule 4
+
+The moving average is trending downward.  
+However, the stock price moves far below the moving average.
+
+This may be a buy signal because the stock price may be oversold and could bounce back.
+
+## Short Position
+
+A short position is used when we want to sell the stock.
+
+In general, sell signals are stronger when the moving average is starting to go downward or already moving downward.
+
+### Short Rule 1
+
+The moving average is starting to go downward or moving sideways.  
+Then, the stock price crosses below the moving average from above.
+
+This may be a sell signal because the stock price starts moving below the trend line.
+
+### Short Rule 2
+
+The moving average is trending downward.  
+Then, the stock price temporarily rises above the moving average but crosses back below it.
+
+This may be a sell signal because the stock price returns to the downward trend.
+
+### Short Rule 3
+
+The moving average is trending downward.  
+Then, the stock price moves up close to the moving average but does not clearly break above it.
+
+This may be a sell signal because the moving average acts like a resistance line.
+
+### Short Rule 4
+
+The moving average is trending upward.  
+However, the stock price moves far above the moving average.
+
+This may be a sell signal because the stock price may be overbought and could move downward.
+
+## Beginner's Note
+
+As a beginner, I think Rule 1 and Rule 4 can be difficult to use.
+
+Rule 1 tries to find the beginning of a new trend, but it can be hard to know whether the trend is really changing.
+
+Rule 4 tries to find a rebound or reversal point when the stock price is far away from the moving average, but this is also difficult because the stock price can continue moving in the same direction.
+
+Therefore, it may be better to focus on Rule 2 and Rule 3 first.
+
+Rule 2 and Rule 3 are easier to understand because they are based on an existing trend.
+
+In simple words:
+
+| Rule | Beginner difficulty | Reason |
+|---|---|---|
+| Rule 1 | Difficult | Tries to find the beginning of a trend |
+| Rule 2 | Easier | Uses an existing trend |
+| Rule 3 | Easier | Uses the moving average as support or resistance |
+| Rule 4 | Difficult | Tries to find a reversal from an extreme condition |
+
+You can use this graph to check possible buy and sell points based on Granville's rules.
+
+![Figure 1](fig1.png)
+
+In this example, the **25-day moving average** is used as the basic trend line.
+
+When the moving average is trending upward, the stock is generally in an uptrend.  
+If the stock price temporarily goes down close to the moving average and then rises again, this can be considered a possible buy point.
+
+This is similar to **Granville's Long Rule 2, 3**.
+
+In simple words:
+
+```text
+Moving average is going up
+→ stock price falls close to the moving average
+→ stock price bounces upward again
+→ possible buy point
+```
+
+## Using the Candle Stick Pattern
+
+Here I will also introduce analysis using the candle stick pattern. 
+
+### Candlestick Shapes and Meanings
+
+Candlestick charts are used to understand market psychology from stock price movement.
+
+Each candlestick shows the relationship between the **open price**, **high price**, **low price**, and **close price**.
+
+| Japanese name | English name | Meaning |
+|---|---|---|
+| 大陽線（だいようせん） | Large bullish candlestick | The stock price rises strongly from the opening price and stays near the high price until the close. This suggests strong bullish momentum and the possibility of higher prices in the future. |
+| 小陽線（しょうようせん） | Small bullish candlestick | A bullish candlestick with a short body and short upper/lower shadows. It is also called a star candle. It suggests market hesitation and no clear direction. |
+| 上影陽線（うわかげようせん） | Bullish candlestick with a long upper shadow | A bullish candlestick with a long upper shadow. The stock price went up during the day, but it could not maintain the high price by the close. This suggests resistance above and possible selling pressure. |
+| 下影陽線（したかげようせん） | Bullish candlestick with a long lower shadow | A bullish candlestick with a long lower shadow. It can suggest a possible trend reversal. If it appears at a high price level, it may suggest selling pressure. If it appears at a low price level, it may suggest a buying opportunity. |
+| 大陰線（だいいんせん） | Large bearish candlestick | The stock price falls strongly from the opening price and does not recover much by the close. This suggests strong bearish momentum and the possibility of lower prices in the future. |
+| 小陰線（しょういんせん） | Small bearish candlestick | A bearish candlestick with a short body and short upper/lower shadows. It is also called a star candle. It suggests market hesitation and no clear direction. |
+| 上影陰線（うわかげいんせん） | Bearish candlestick with a long upper shadow | A bearish candlestick with a long upper shadow. The stock price rose after the market opened, but later fell and closed below the opening price. This suggests that selling pressure remained strong toward the close. |
+| 下影陰線（したかげいんせん） | Bearish candlestick with a long lower shadow | A bearish candlestick with a long lower shadow. It can suggest a possible trend reversal. If it appears at a high price level, it may suggest selling pressure. If it appears at a low price level, it may suggest a buying opportunity. |
+| 寄引同時線（よりひきどうじせん） | Doji candlestick | A candlestick where the opening price and closing price are almost the same. This shows that buyers and sellers are balanced. It may suggest that the market is preparing to move strongly either upward or downward. |
+
+So far, I explained the meaning of each individual candlestick.
+
+However, candlestick analysis does not only use one candlestick.
+
+There are also important candlestick patterns that use one, two, or three candlesticks together.
+
+For example, one candlestick can show whether buyers or sellers were stronger on that day.  
+However, two or three candlesticks can show how market psychology is changing over time.
+
+In this section, I will explain several famous candlestick patterns.
+
+For single-candlestick patterns, I will explain **Opening Marubozu** and **Closing Marubozu**.
+
+For two-candlestick patterns, I will explain **Engulfing Patterns** and **Harami Patterns**.
+
+Then, I will explain bullish reversal examples, such as **Bullish Engulfing Pattern** and **Bullish Harami Pattern**.
+
+| Pattern | Meaning |
+|---|---|
+| Opening Marubozu | A candlestick with no shadow on the opening side |
+| Closing Marubozu | A candlestick with no shadow on the closing side |
+| Engulfing Pattern | The second candlestick covers the body of the previous candlestick |
+| Harami Pattern | The second candlestick is inside the body of the previous candlestick |
+| Bullish Engulfing Pattern | A bullish reversal pattern where a bullish candle covers the previous bearish candle |
+| Bullish Harami Pattern | A bullish reversal pattern where a small bullish candle appears inside the previous bearish candle |
+
+In simple words:
+
+| Pattern type | Number of candlesticks | Examples |
+|---|---:|---|
+| Single candlestick pattern | 1 | Opening Marubozu, Closing Marubozu |
+| Two-candlestick pattern | 2 | Engulfing Pattern, Harami Pattern |
+| Three-candlestick pattern | 3 | Morning Star, Evening Star, Three White Soldiers, Three Black Crows |
+
+These patterns can suggest either **trend continuation** or **trend reversal**.
+

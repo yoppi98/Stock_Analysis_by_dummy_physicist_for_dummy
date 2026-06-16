@@ -49,7 +49,7 @@ intel_df["slowK"], intel_df["slowD"]= ta.STOCH(intel_df["High"], intel_df["Low"]
 intel_df["macd"],intel_df["macd_signal"],intel_df["hist"]=ta.MACD(Close, 
                         fastperiod=12, slowperiod= 26, signalperiod=9)
 
-plot_df = intel_df["2024-12-01":]
+plot_df = intel_df["2025-12-01":]
 plot_df.index = pd.to_datetime(plot_df.index).strftime("%m-%d-%y")
 
 data = [go.Candlestick(x = plot_df.index, open = plot_df["Open"], 
@@ -66,11 +66,11 @@ data = [go.Candlestick(x = plot_df.index, open = plot_df["Open"],
         go.Scatter(yaxis="y1",x=plot_df.index, y = plot_df["ma25"], name = "MA25", line={"color":"blue", "width":1.5}),
 
         go.Scatter(yaxis="y1",x=plot_df.index, y= plot_df["gc_point"], name="Golden Cross",  mode="markers", 
-                   marker=dict(size=20, color="yellow", symbol="triangle-up",
+                   marker=dict(size=10, color="yellow", symbol="triangle-up",
                            line=dict(color="black", width=2))),
 
         go.Scatter(yaxis="y1",x=plot_df.index, y= plot_df["dc_point"], name="Dead Cross", mode="markers", 
-                   marker=dict(color="red",size=20,symbol="triangle-down",line=dict(color="black", width=2))),
+                   marker=dict(color="red",size=10,symbol="triangle-down",line=dict(color="black", width=2))),
         
         go.Scatter(yaxis="y1",x=plot_df.index, y = plot_df["Upper2"], name="",line={"color": "white", "width":0}),
 
