@@ -196,3 +196,95 @@ In simple words:
 
 These patterns can suggest either **trend continuation** or **trend reversal**.
 
+### Marubozu
+
+A **Marubozu** candlestick is a candlestick with little or no shadow.
+
+In other words, the opening price and closing price are very close to the high or low price.
+
+There are two main types of Marubozu:
+
+| Type | Meaning |
+|---|---|
+| Bullish Marubozu | Strong buying pressure |
+| Bearish Marubozu | Strong selling pressure |
+
+A **Bullish Marubozu** means that the stock price increased strongly during the trading period.
+
+In this case, buyers were stronger than sellers.  
+Therefore, it can be interpreted as a possible buy signal.
+
+A **Bearish Marubozu** means that the stock price decreased strongly during the trading period.
+
+In this case, sellers were stronger than buyers.  
+Therefore, it can be interpreted as a possible sell signal.
+
+In simple words:
+
+```text
+Bullish Marubozu = strong buying pressure
+Bearish Marubozu = strong selling pressure
+```
+
+We can detect this pattern using the TA-Lib library.
+
+The TA-Lib function for detecting a Marubozu pattern is:
+
+```python
+ta.CDLMARUBOZU()
+```
+
+The input data are **Open**, **High**, **Low**, and **Close** prices.
+
+```python
+df["Marubozu"] = ta.CDLMARUBOZU(df["Open"],df["High"],df["Low"],df["Close"])
+```
+
+The return values are:
+
+| Return value | Meaning |
+|---:|---|
+| 100 | Bullish Marubozu |
+| -100 | Bearish Marubozu |
+| 0 | No Marubozu pattern |
+
+We can also show Marubozu signals directly on the chart.
+
+To make the chart easier to understand, we replace `100` with `Buy`, `-100` with `Sell`, and `0` with nothing.
+
+We also place the marker at the **High price** of the candlestick.
+
+This makes the signal easy to see above the candlestick.
+
+```python
+intel_df["Marubozu_Text"] = intel_df["Marubozu"].replace({100: "Buy",-100: "Sell",0: ""})
+
+intel_df["Marubozu_Marker"] = intel_df["High"].where(intel_df["Marubozu"] != 0)
+```
+Marubozu patterns are not very common in real stock charts.
+
+This is because a Marubozu candlestick requires little or no upper and lower shadow.
+
+In daily stock data, most candlesticks have some shadow because the price usually moves up and down during the trading day.
+
+![Figure 2](fig2.png)
+
+### Bullish opening marubozu, Bearishh opening marboze. 
+
+A **Bullish Opening Marubozu** means that the stock opened near the low price and moved upward.
+
+This shows strong buying pressure after the market opened.
+
+A **Bearish Opening Marubozu** means that the stock opened near the high price and moved downward.
+
+This shows strong selling pressure after the market opened.
+
+For detecting **Opening Marubozu**, we can use the TA-Lib function:
+
+```python
+ta.CDLBELTHOLD()
+```
+
+![Figure 3](fig3.png)
+
+As you can see more pattern is seen compared to the Marubozu candle stick. 
