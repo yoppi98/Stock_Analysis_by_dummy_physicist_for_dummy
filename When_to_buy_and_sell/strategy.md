@@ -288,3 +288,61 @@ ta.CDLBELTHOLD()
 ![Figure 3](fig3.png)
 
 As you can see more pattern is seen compared to the Marubozu candle stick. 
+
+So far, we have seen the one pattern candle stick pattern but lets talk about the two candle stick pattern. 
+
+### TsuTsumiAsi, Engulfing Pattern
+
+An **Engulfing Pattern** is a two-candlestick pattern.
+
+The second candlestick has a body that covers the body of the previous candlestick.
+
+It can suggest that market psychology is changing.
+
+A **Bullish Engulfing Pattern** may suggest a possible upward reversal.
+
+This pattern appears when the first candlestick is bearish and the second candlestick is bullish.
+
+In this case, the body of the second bullish candlestick covers the body of the first bearish candlestick.
+
+This means that buyers became stronger than sellers.
+
+```text
+First day: Bearish candlestick
+Second day: Bullish candlestick
+→ Possible upward reversal
+```
+
+A **Bearish Engulfing Pattern** may suggest a possible downward reversal.
+
+This pattern appears when the first candlestick is bullish and the second candlestick is bearish.
+
+In this case, the body of the second bearish candlestick covers the body of the first bullish candlestick.
+
+This means that sellers became stronger than buyers.
+
+```text
+First day: Bullish candlestick
+Second day: Bearish candlestick
+→ Possible downward reversal
+```
+
+In simple words:
+
+| Pattern | First day | Second day | Possible meaning |
+|---|---|---|---|
+| Bullish Engulfing Pattern | Bearish candlestick | Bullish candlestick | Possible upward reversal |
+| Bearish Engulfing Pattern | Bullish candlestick | Bearish candlestick | Possible downward reversal |
+
+The important point is that the **body** of the second candlestick should cover the **body** of the first candlestick.
+
+### Harami Pattern 
+
+A **Harami Pattern** is also a two-candlestick pattern.
+
+The second candlestick is smaller and appears inside the body of the first candlestick.
+
+This pattern can suggest that the current trend is becoming weaker.
+
+A bullish harami pattern may suggest a possible upward reversal.  
+A bearish harami pattern may suggest a possible downward reversal.
