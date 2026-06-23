@@ -338,11 +338,194 @@ The important point is that the **body** of the second candlestick should cover 
 
 ### Harami Pattern 
 
+
 A **Harami Pattern** is also a two-candlestick pattern.
 
 The second candlestick is smaller and appears inside the body of the first candlestick.
 
-This pattern can suggest that the current trend is becoming weaker.
+This means that the strong movement from the first day becomes weaker on the second day.
 
-A bullish harami pattern may suggest a possible upward reversal.  
-A bearish harami pattern may suggest a possible downward reversal.
+In simple words:
+
+```text
+First candlestick: large body
+Second candlestick: small body inside the first body
+```
+
+A Harami pattern can suggest that the current trend is losing strength.
+
+## Bullish Harami Pattern
+
+A **Bullish Harami Pattern** may suggest a possible upward reversal.
+
+This pattern usually appears after a downtrend.
+
+The first candlestick is bearish, and the second candlestick is smaller.  
+The second candlestick appears inside the body of the first bearish candlestick.
+
+The second candlestick can be either bullish or bearish, but if it is bullish, the reversal signal may look stronger.
+
+```text
+First day: Large bearish candlestick
+Second day: Small candlestick inside the first body
+→ Possible upward reversal
+```
+
+## Bearish Harami Pattern
+
+A **Bearish Harami Pattern** may suggest a possible downward reversal.
+
+This pattern usually appears after an uptrend.
+
+The first candlestick is bullish, and the second candlestick is smaller.  
+The second candlestick appears inside the body of the first bullish candlestick.
+
+The second candlestick can be either bullish or bearish, but if it is bearish, the reversal signal may look stronger.
+
+```text
+First day: Large bullish candlestick
+Second day: Small candlestick inside the first body
+→ Possible downward reversal
+```
+
+In simple words:
+
+| Pattern | First day | Second day | Possible meaning |
+|---|---|---|---|
+| Bullish Harami Pattern | Large bearish candlestick | Small candlestick inside the first body | Possible upward reversal |
+| Bearish Harami Pattern | Large bullish candlestick | Small candlestick inside the first body | Possible downward reversal |
+
+## Engulfing Pattern and Harami Pattern in TA-Lib
+
+Both **Engulfing Pattern** and **Harami Pattern** can be detected using TA-Lib.
+
+| Pattern | TA-Lib method |
+|---|---|
+| Engulfing Pattern | `CDLENGULFING()` |
+| Harami Pattern | `CDLHARAMI()` |
+
+I will omit the Python code here, but the code structure is the same as the Marubozu pattern.
+
+We only need to change the TA-Lib method name.
+
+For example:
+
+```python
+ta.CDLENGULFING()
+```
+
+or
+
+```python
+ta.CDLHARAMI()
+```
+
+The return values are also similar:
+
+| Return value | Meaning |
+|---:|---|
+| 100 | Bullish signal |
+| -100 | Bearish signal |
+| 0 | No pattern |
+
+### Tsutsumi Age / Tsutsumi Sage and Harami Age / Harami Sage
+
+We can also use **three candlesticks** to guess the possible future movement of the stock price.
+
+These patterns are stronger versions of the two-candlestick patterns.
+
+## Tsutsumi Age and Tsutsumi Sage
+
+**Tsutsumi Age** is related to the **Bullish Engulfing Pattern**.
+
+First, a bullish engulfing pattern appears.  
+Then, on the third day, if the stock price rises above the high price of the second day, it can be considered a stronger buy signal.
+
+```text
+First and second day: Bullish Engulfing Pattern
+Third day: High price becomes higher than the second day's high
+→ Stronger buy signal
+```
+
+**Tsutsumi Sage** is related to the **Bearish Engulfing Pattern**.
+
+First, a bearish engulfing pattern appears.  
+Then, on the third day, if the stock price falls below the low price of the second day, it can be considered a stronger sell signal.
+
+```text
+First and second day: Bearish Engulfing Pattern
+Third day: Low price becomes lower than the second day's low
+→ Stronger sell signal
+```
+
+## Harami Age and Harami Sage
+
+This idea is similar for the Harami Pattern.
+
+**Harami Age** is related to the **Bullish Harami Pattern**.
+
+First, a bullish harami pattern appears.  
+Then, on the third day, if the stock price rises above the high price of the second day, it can be considered a stronger buy signal.
+
+```text
+First and second day: Bullish Harami Pattern
+Third day: High price becomes higher than the second day's high
+→ Stronger buy signal
+```
+
+**Harami Sage** is related to the **Bearish Harami Pattern**.
+
+First, a bearish harami pattern appears.  
+Then, on the third day, if the stock price falls below the low price of the second day, it can be considered a stronger sell signal.
+
+```text
+First and second day: Bearish Harami Pattern
+Third day: Low price becomes lower than the second day's low
+→ Stronger sell signal
+```
+
+## TA-Lib Methods
+
+We can detect these three-candlestick patterns using TA-Lib.
+
+| Japanese pattern | English idea | TA-Lib method |
+|---|---|---|
+| 包み上げ / 包み下げ | Three Outside Pattern | `CDL3OUTSIDE()` |
+| はらみ上げ / はらみ下げ | Three Inside Pattern | `CDL3INSIDE()` |
+
+For example:
+
+```python
+ta.CDL3OUTSIDE()
+```
+
+is used for the three-candlestick version of the engulfing pattern.
+
+```python
+ta.CDL3INSIDE()
+```
+
+is used for the three-candlestick version of the harami pattern.
+
+The return values are similar to other TA-Lib candlestick functions.
+
+| Return value | Meaning |
+|---:|---|
+| 100 | Bullish signal |
+| -100 | Bearish signal |
+| 0 | No pattern |
+
+In simple words:
+
+| Pattern | Basic two-candle pattern | Third-day confirmation |
+|---|---|---|
+| Tsutsumi Age | Bullish Engulfing Pattern | Third day's high becomes higher |
+| Tsutsumi Sage | Bearish Engulfing Pattern | Third day's low becomes lower |
+| Harami Age | Bullish Harami Pattern | Third day's high becomes higher |
+| Harami Sage | Bearish Harami Pattern | Third day's low becomes lower |
+
+These three-candlestick patterns may be stronger than the original two-candlestick patterns because the third candlestick confirms the direction of the price movement.
+
+However, they are still not perfect signals.
+
+It is better to check them together with moving averages, volume, RSI, MACD, and Bollinger Bands.
